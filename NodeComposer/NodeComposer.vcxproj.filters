@@ -1,0 +1,145 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>qml;cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>qrc;rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Form Files">
+      <UniqueIdentifier>{99349809-55BA-4b9d-BF79-8FDBB0286EB3}</UniqueIdentifier>
+      <Extensions>ui</Extensions>
+    </Filter>
+    <Filter Include="Translation Files">
+      <UniqueIdentifier>{639EADAA-A684-42e4-A9AD-28FC9BCB8F7C}</UniqueIdentifier>
+      <Extensions>ts</Extensions>
+    </Filter>
+    <Filter Include="Header Files\library">
+      <UniqueIdentifier>{ae091aca-0400-46da-bd6e-cc9826c9086b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\library\midifile">
+      <UniqueIdentifier>{e5cc7c0a-031e-4b3a-9243-95505f97034a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\library\RtMidi">
+      <UniqueIdentifier>{24a2182a-d108-47e9-9db3-ad40104c2e5a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\library">
+      <UniqueIdentifier>{4eacb5fa-164f-4213-950e-a0d22fdadfb9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\library\RtMidi">
+      <UniqueIdentifier>{a1b1a57e-2849-4d25-a17f-498700505307}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\library\midifile">
+      <UniqueIdentifier>{38d7d76b-6f77-4852-88f7-96ff095003bf}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <QtRcc Include="NodeComposer.qrc">
+      <Filter>Resource Files</Filter>
+    </QtRcc>
+    <QtUic Include="NodeComposer.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtMoc Include="NodeComposer.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <ClCompile Include="NodeComposer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="variable_lib.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="util.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="NodeVariable.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Sound.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="lua_additional_functions.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Node.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="library\midifile\Binasc.cpp">
+      <Filter>Source Files\library\midifile</Filter>
+    </ClCompile>
+    <ClCompile Include="library\midifile\MidiEvent.cpp">
+      <Filter>Source Files\library\midifile</Filter>
+    </ClCompile>
+    <ClCompile Include="library\midifile\MidiEventList.cpp">
+      <Filter>Source Files\library\midifile</Filter>
+    </ClCompile>
+    <ClCompile Include="library\midifile\MidiFile.cpp">
+      <Filter>Source Files\library\midifile</Filter>
+    </ClCompile>
+    <ClCompile Include="library\midifile\MidiMessage.cpp">
+      <Filter>Source Files\library\midifile</Filter>
+    </ClCompile>
+    <ClCompile Include="library\midifile\Options.cpp">
+      <Filter>Source Files\library\midifile</Filter>
+    </ClCompile>
+    <ClCompile Include="library\RtMidi\RtMidi.cpp">
+      <Filter>Source Files\library\RtMidi</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="base.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Node.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="variable_lib.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="util.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Sound.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="NodeVariable.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="lua_additional_functions.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="library\midifile\Binasc.h">
+      <Filter>Header Files\library\midifile</Filter>
+    </ClInclude>
+    <ClInclude Include="library\midifile\MidiEvent.h">
+      <Filter>Header Files\library\midifile</Filter>
+    </ClInclude>
+    <ClInclude Include="library\midifile\MidiEventList.h">
+      <Filter>Header Files\library\midifile</Filter>
+    </ClInclude>
+    <ClInclude Include="library\midifile\MidiFile.h">
+      <Filter>Header Files\library\midifile</Filter>
+    </ClInclude>
+    <ClInclude Include="library\midifile\MidiMessage.h">
+      <Filter>Header Files\library\midifile</Filter>
+    </ClInclude>
+    <ClInclude Include="library\midifile\Options.h">
+      <Filter>Header Files\library\midifile</Filter>
+    </ClInclude>
+    <ClInclude Include="library\RtMidi\RtMidi.h">
+      <Filter>Header Files\library\RtMidi</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
