@@ -3,7 +3,7 @@
 
 namespace ncp
 {
-	constexpr std::string_view NCP_VERSION = "0.0.0";
+	constexpr std::string_view NCP_VERSION = "0.0.1";
 
 	extern uint32_t tempo;
 	extern uint32_t tpq;
@@ -15,6 +15,11 @@ namespace ncp
 		//debug lua stack
 		void PrintLuaStack(lua_State*);
 	}
+
+	typedef struct NCPVersion
+	{
+		size_t Major, Minor, Patch;
+	};
 
 	namespace exf
 	{
@@ -35,5 +40,8 @@ namespace ncp
 
 		//setup midifile to save
 		void setupMidiFile(smf::MidiFile&);
+
+		//get version
+		NCPVersion string2version(const std::string&);
 	}
 }

@@ -243,8 +243,8 @@ namespace ncp
 	}
 	void NodeVectorBool::readForm(QList<QLineEdit*>* fields)
 	{
-		boost::tokenizer<boost::char_separator<char>> tokens((*fields)[0]->text().toStdString(), boost::char_separator<char>(", "));
-		std::vector<bool> v;
+		std::string str = (*fields)[0]->text().toStdString();
+		boost::tokenizer<boost::char_separator<char>> tokens(str, boost::char_separator<char>(", "));
 		vec.clear();
 		for (auto it = tokens.begin(); it != tokens.end(); ++it)
 		{

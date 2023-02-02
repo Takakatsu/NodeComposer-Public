@@ -59,9 +59,15 @@ void NodeComposer::paintEvent(QPaintEvent*)
 	std::cout << "draw update" << std::endl;
 
 	//draw body
-	for (int i = 0; i < nodes.size(); i++)nodes[i]->draw_body(this);
+	for (int i = 0; i < nodes.size(); i++)
+	{
+		nodes[i]->draw_body(this, parent_node.find(nodes[i]) != parent_node.end() || active_node == nodes[i]);
+	}
 	//draw lines
-	for (int i = 0; i < nodes.size(); i++)nodes[i]->draw_lines(this);
+	for (int i = 0; i < nodes.size(); i++)
+	{
+		nodes[i]->draw_lines(this);
+	}
 
 	SetGUIPosition();
 }
@@ -108,19 +114,31 @@ void NodeComposer::clickNodeConnection(ncp::MutualConnector mc)
 	std::set<ncp::lib::TYPES> argument_types;
 	ncp::lib::TYPES return_type;
 	int i, j;
-	for (i = 0; i < ncp::lib::nodelibs[connector_argument.first->getNodeName()].type_sets.size(); i++)
+
+	argument_types = ncp::lib::nodelibs[connector_argument.first->getNodeName()].type_sets[connector_argument.first->getTypesNum()].first[connector_argument.second];
+	return_type = ncp::lib::nodelibs[connector_return.first->getNodeName()].type_sets[connector_return.first->getTypesNum()].second[connector_return.second];
+	if (argument_types.find(return_type) != argument_types.end())
 	{
-		argument_types = ncp::lib::nodelibs[connector_argument.first->getNodeName()].type_sets[i].first[connector_argument.second];
-		for (j = 0; j < ncp::lib::nodelibs[connector_return.first->getNodeName()].type_sets.size(); j++)
+		i = connector_argument.first->getTypesNum();
+		j = connector_return.first->getTypesNum();
+		found = true;
+	}
+	else
+	{
+		for (i = 0; i < ncp::lib::nodelibs[connector_argument.first->getNodeName()].type_sets.size(); i++)
 		{
-			return_type = ncp::lib::nodelibs[connector_return.first->getNodeName()].type_sets[j].second[connector_return.second];
-			if (argument_types.find(return_type) != argument_types.end())
+			argument_types = ncp::lib::nodelibs[connector_argument.first->getNodeName()].type_sets[i].first[connector_argument.second];
+			for (j = 0; j < ncp::lib::nodelibs[connector_return.first->getNodeName()].type_sets.size(); j++)
 			{
-				found = true;
-				break;
+				return_type = ncp::lib::nodelibs[connector_return.first->getNodeName()].type_sets[j].second[connector_return.second];
+				if (argument_types.find(return_type) != argument_types.end())
+				{
+					found = true;
+					break;
+				}
 			}
+			if (found)break;
 		}
-		if (found)break;
 	}
 	if (!found)
 	{
@@ -129,8 +147,14 @@ void NodeComposer::clickNodeConnection(ncp::MutualConnector mc)
 	}
 
 	//type change
-	if (connector_argument.first->getTypesNum() != i)connector_argument.first->setTypesNum(i);
-	if (connector_return.first->getTypesNum() != j)connector_return.first->setTypesNum(j);
+	if (connector_argument.first->getTypesNum() != i)
+	{
+		connector_argument.first->setTypesNum(i);
+	}
+	if (connector_return.first->getTypesNum() != j)
+	{
+		connector_return.first->setTypesNum(j);
+	}
 
 	//connect
 	connector_argument.first->setArgumentConnection(connector_argument.second, connector_return);
@@ -201,7 +225,9 @@ void NodeComposer::MakeSave()
 }
 void NodeComposer::LoadSave(nlohmann::json data)
 {
-	if (data["version"] == "0.0.0")
+	std::string version_str = data["version"];
+	ncp::NCPVersion data_version = ncp::exf::string2version(version_str);
+	if (data_version.Major == 0 && data_version.Minor == 0)
 	{
 		ncp::tpq = data["tpq"];
 		ncp::tempo = data["tempo"];
@@ -369,7 +395,7 @@ void NodeComposer::contextMenuEvent(QContextMenuEvent* event)
 //L click
 void NodeComposer::mousePressEvent(QMouseEvent* eve)
 {
-	movenode.first = nullptr;
+	moved_node.first = nullptr;
 	if (eve->button() == Qt::LeftButton)
 	{
 		QPoint pos = this->mapFromGlobal(QCursor::pos());
@@ -387,9 +413,12 @@ void NodeComposer::mousePressEvent(QMouseEvent* eve)
 		{
 			if ((*it)->getNodeRect().contains(pos))
 			{
+				active_node = (*it);
+				parent_node = active_node->getParentNodes();
 				(*it)->update();
 				(*it)->playSound();
-				movenode = std::make_pair((*it), pos - (*it)->getNodeRect().topLeft());
+				moved_node = std::make_pair((*it), pos - (*it)->getNodeRect().topLeft());
+				update();
 				return;
 			}
 		}
@@ -399,9 +428,9 @@ void NodeComposer::mousePressEvent(QMouseEvent* eve)
 //drag
 void NodeComposer::mouseMoveEvent(QMouseEvent* eve)
 {
-	if (movenode.first != nullptr)
+	if (moved_node.first != nullptr)
 	{
-		movenode.first->moveNodeRect(eve->pos() - movenode.second);
+		moved_node.first->moveNodeRect(eve->pos() - moved_node.second);
 		update();
 	}
 }

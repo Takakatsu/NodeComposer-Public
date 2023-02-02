@@ -28,7 +28,10 @@ private:
 
 	std::vector<ncp::Node*> nodes;
 
-	std::pair<ncp::Node*, QPoint> movenode;
+	std::pair<ncp::Node*, QPoint> moved_node;
+
+	ncp::Node* active_node;
+	std::set<ncp::Node*> parent_node;
 
 	//node selector
 	ncp::MutualConnector selected_connection;

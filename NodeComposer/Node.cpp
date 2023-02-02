@@ -106,11 +106,22 @@ namespace ncp
 		if (lib::nodelibs[name].type_sets[types_num].second.size() > 0)sound = values_return[0]->getSound();
 	}
 
-	void Node::setTypesNum(size_t t) { types_num = t; }
+	void Node::setTypesNum(size_t t)
+	{
+		types_num = t;
+		//reset irregular connection
+		for (int i = 0; i < argument_connection.size(); i++)
+		{
+			if (argument_connection[i].first == nullptr)continue;
+			std::set<ncp::lib::TYPES> argument_types = ncp::lib::nodelibs[getNodeName()].type_sets[getTypesNum()].first[i];
+			ncp::lib::TYPES return_type = ncp::lib::nodelibs[argument_connection[i].first->getNodeName()].type_sets[argument_connection[i].first->getTypesNum()].second[argument_connection[i].second];
+			if (argument_types.find(return_type) == argument_types.end())setArgumentConnection(i);
+		}
+	}
 	void Node::setArgumentConnection(const size_t& t, const SingleConnector& connect) { argument_connection[t] = connect; }
 	void Node::moveNodeRect(QPoint pq) { rect.moveTopLeft(pq); }
 
-	void Node::draw_body(QPaintDevice* qpd)
+	void Node::draw_body(QPaintDevice* qpd, bool is_active)
 	{
 		QPainter painter(qpd);
 		painter.setRenderHint(QPainter::Antialiasing, true);
@@ -124,14 +135,17 @@ namespace ncp
 		for (int i = 0; i < lib::nodelibs[name].type_sets[types_num].first.size(); i++)
 		{
 			painter.setBrush(QBrush(lib::types_color[*(lib::nodelibs[name].type_sets[types_num].first[i].begin())], Qt::SolidPattern));
+			if (!is_active)painter.setBrush(QBrush(lib::types_color[ncp::lib::TYPES::TN_NULL], Qt::SolidPattern));
 			painter.drawRect(getNodeConnectionRect(true, i));
 		}
 		for (int i = 0; i < lib::nodelibs[name].type_sets[types_num].second.size(); i++)
 		{
 			painter.setBrush(QBrush(lib::types_color[lib::nodelibs[name].type_sets[types_num].second[i]], Qt::SolidPattern));
+			if (!is_active)painter.setBrush(QBrush(lib::types_color[ncp::lib::TYPES::TN_NULL], Qt::SolidPattern));
 			painter.drawRect(getNodeConnectionRect(false, i));
 		}
 		//draw values
+		if (!is_active)return;
 		painter.setPen(QPen(Qt::black, 1));
 		for (int i = 0; i < lib::nodelibs[name].type_sets[types_num].first.size(); i++)
 		{

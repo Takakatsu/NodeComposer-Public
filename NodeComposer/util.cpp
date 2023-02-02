@@ -61,7 +61,7 @@ namespace ncp
 
 		bool string2bool(const std::string& str)
 		{
-			if (str == "0" || str == "false")return false;
+			if (str == std::string("0") || str == std::string("false"))return false;
 			return true;
 		}
 		int string2int(const std::string& str)
@@ -88,6 +88,32 @@ namespace ncp
 		{
 			midi.setTPQ(tpq);
 			midi.addTimbre(0, 0, 0, 0);
+		}
+
+		NCPVersion string2version(const std::string& str)
+		{
+			NCPVersion ver;
+			boost::tokenizer<boost::char_separator<char>> version_num(str, boost::char_separator<char>("."));
+			size_t n = 0;
+			for (auto it = version_num.begin(); it != version_num.end(); ++it)
+			{
+				switch (n)
+				{
+				case 0:
+					ver.Major = string2int(it.current_token());
+					break;
+				case 1:
+					ver.Minor = string2int(it.current_token());
+					break;
+				case 2:
+					ver.Patch = string2int(it.current_token());
+					break;
+				default:
+					break;
+				}
+				n++;
+			}
+			return ver;
 		}
 	}
 }

@@ -53,7 +53,7 @@ namespace ncp
 
 		////////draw////////
 	public:
-		void draw_body(QPaintDevice*);
+		void draw_body(QPaintDevice*, bool);
 		void draw_lines(QPaintDevice*);
 	};
 }
