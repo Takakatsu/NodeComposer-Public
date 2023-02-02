@@ -15,6 +15,10 @@
 
 ## 更新情報/Update
 
+- 2023/2/3
+  - [NodeComposer-v0.0.1-alpha](https://github.com/Takakatsu/NodeComposer-Public/releases/tag/v0.0.1-alpha)公開
+    - 一部の型などのバグ修正
+    - アクティブなノードとその親ノードが目立つように見た目を修正
 - 2023/1/31
   - [NodeComposer-v0.0.0-alpha](https://github.com/Takakatsu/NodeComposer-Public/releases/tag/v0.0.0-alpha)公開
 
